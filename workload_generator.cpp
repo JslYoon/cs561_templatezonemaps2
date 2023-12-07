@@ -144,7 +144,38 @@ void generate_point_queries(std::string & output_path, Parameters & params,
 }
 void generate_range_queries(std::string & output_path, Parameters & params,
 		std::vector<int> & input_data) {
-	// Your code starts here ...
+
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine gen (seed);
+	std::uniform_int_distribution<int>  dist1(0, (size_t) (2.0*params.UB));
+	std::uniform_int_distribution<int>  dist2(0, input_data.size() - 1);
+	std::ofstream output_file(output_path);
+	srand(time(NULL));
+
+	for (size_t i = 0; i < params.P; i++) {
+		if (rand()*1.0/RAND_MAX <= 0.2) {
+			// with 0.2 probability, randomly generate point queries, may contain existing
+			// or non-exising queries
+			int a = dist1(gen);
+			int b = dist1(gen);
+			if (a > b) {
+				output_file << b << "," <<  a << std::endl;
+			} else {
+				output_file << a << "," << b << std::endl;
+			}
+		} else {
+			// generate existing queries
+			int a = input_data[dist2(gen)];
+			int b = input_data[dist2(gen)];
+			if (a > b) {
+				output_file << b << "," << a << std::endl;
+			} else {
+				output_file << a << "," <<  b << std::endl;
+			}
+		}
+	}
+	output_file.close();
+
 }
 
 

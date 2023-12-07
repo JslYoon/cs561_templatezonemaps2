@@ -11,6 +11,7 @@ struct zone
     T min;                   // minimum element in the zone
     T max;                   // maximum element in the zone
     uint size;               // no. of elements in current zone
+    bool sorted;          // whether this zone is sorted or not
 };
 
 template <typename T>
@@ -57,5 +58,21 @@ public:
      * returns: list of elements found using the query 
      */
     std::vector<T> query(T low, T high);
+
+    // Purpose: sort the elements in a zone
+    // Param: index of the zone to be sorted
+    // returns: N/A
+    void sort_zone(int index);
+
+    // Purpose: split a zone into two smaller zones in the zones vector
+    // Param: index of the zone to split
+    // returns: N/A
+    void split_zone(int index);
+
+    // Purpose: find the zone where the key will belong to
+    // Param: key to find the zone for
+    // Returns: index of the zone in zones vector
+    int find_zone(T key);
+
 };
 #endif

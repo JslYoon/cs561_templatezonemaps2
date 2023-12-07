@@ -6,6 +6,6 @@ main: main.cpp zonemaps.cpp
 workloadgenerator: workload_generator.cpp
 	g++ -g -std=c++0x -o $@ $^
 
-clear: 
+clean: 
 	rm main
 	rm workloadgenerator
