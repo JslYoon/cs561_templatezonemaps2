@@ -139,8 +139,10 @@ std::vector<T> zonemap<T>::query(T low, T high) {
     for (int i = 0; i < zones[l].elements.size(); i++) {
         vec.push_back(zones[l].elements[i]);
     }
-    for (int i = 0; i < zones[h].elements.size(); i++) {
-        vec.push_back(zones[h].elements[i]);
+    if (l != h) {
+        for (int i = 0; i < zones[h].elements.size(); i++) {
+            vec.push_back(zones[h].elements[i]);
+        }
     }
     return vec;
 }
